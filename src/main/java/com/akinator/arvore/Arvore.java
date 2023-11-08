@@ -32,7 +32,7 @@ public class Arvore{
 
     public void criaArvore(){ // le o arquivo csv e insere as perguntas na arvore
         if(raiz != null) return;
-        String path = "csv/perguntas/perguntas.csv"; // caminho da pasta com os arquivos
+        String path = "/csv/perguntas/perguntas.csv"; // caminho da pasta com os arquivos
 
 		try{
             BufferedReader br = new BufferedReader(new FileReader(path));
