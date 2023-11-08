@@ -6,7 +6,7 @@
 
     <groupId>com.akinator</groupId>
     <artifactId>akinatorfut</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -28,7 +28,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>akinator.App</mainClass>
+                                    <mainClass>com.akinator.App</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

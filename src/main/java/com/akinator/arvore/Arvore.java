@@ -1,11 +1,13 @@
-package com.akinator;
+package com.akinator.arvore;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.akinator.pergunta.Pergunta;
+
 public class Arvore{
-    public Node raiz;
+    private Node raiz;
 
     public Arvore(){
         this.raiz = null;
@@ -18,24 +20,19 @@ public class Arvore{
     }
 
     private void insere(Node nodeAtual, Node node){
-        if(node.pergunta.id < nodeAtual.pergunta.id){
-            if(nodeAtual.perguntaEsq == null) nodeAtual.perguntaEsq = node;
-            else insere(nodeAtual.perguntaEsq, node);
+        if(node.getPergunta().getId() < nodeAtual.getPergunta().getId()){
+            if(nodeAtual.getPerguntaEsq() == null) nodeAtual.setPerguntaEsq(node);
+            else insere(nodeAtual.getPerguntaEsq(), node);
         }
         else{
-            if(nodeAtual.perguntaDir == null) nodeAtual.perguntaDir = node;
-            else insere(nodeAtual.perguntaDir, node);
+            if(nodeAtual.getPerguntaDir() == null) nodeAtual.setPerguntaDir(node);
+            else insere(nodeAtual.getPerguntaDir(), node);
         }
     }
 
-    public void criaArvore(String estado){ // le o arquivo csv e insere as perguntas na arvore
+    public void criaArvore(){ // le o arquivo csv e insere as perguntas na arvore
         if(raiz != null) return;
-
-        String path = "csv/perguntas/"; // caminho da pasta com os arquivos
-        if(estado == "SP") path = path.concat("sp.csv"); // seta o caminho do .csv
-        else if(estado == "RJ") path = path.concat("rj.csv");
-        else if(estado == "MG") path = path.concat("mg.csv");
-        else path = path.concat("rs.csv");
+        String path = "csv/perguntas/perguntas.csv"; // caminho da pasta com os arquivos
 
 		try{
             BufferedReader br = new BufferedReader(new FileReader(path));
@@ -59,9 +56,9 @@ public class Arvore{
 
     private Node busca(Node nodeAtual, Pergunta pergunta){
         if(nodeAtual == null) return null;
-        if(pergunta.id == nodeAtual.pergunta.id) return nodeAtual;
-        if(pergunta.id < nodeAtual.pergunta.id) return busca(nodeAtual.perguntaEsq, pergunta);
-        else return busca(nodeAtual.perguntaDir, pergunta);
+        if(pergunta.getId() == nodeAtual.getPergunta().getId()) return nodeAtual;
+        if(pergunta.getId() < nodeAtual.getPergunta().getId()) return busca(nodeAtual.getPerguntaEsq(), pergunta);
+        else return busca(nodeAtual.getPerguntaDir(), pergunta);
     }
 
     public void print(){
@@ -71,8 +68,17 @@ public class Arvore{
 
     private void print(Node nodeAtual){
         if(nodeAtual == null) return;
-        System.out.println(nodeAtual.pergunta.texto);
-        print(nodeAtual.perguntaEsq);
-        print(nodeAtual.perguntaDir);
+        System.out.println(nodeAtual.getPergunta().getTexto());
+        print(nodeAtual.getPerguntaEsq());
+        print(nodeAtual.getPerguntaDir());
+    }
+
+    // getter setter
+    public Node getRaiz() {
+        return this.raiz;
+    }
+
+    public void setRaiz(Node raiz) {
+        this.raiz = raiz;
     }
 }
